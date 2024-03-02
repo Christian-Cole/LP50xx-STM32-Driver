@@ -1,0 +1,61 @@
+#ifndef LP50XX_I2C_DRIVER_H_
+#define LP50XX_I2C_DRIVER_H_
+
+//register definitions
+#define DEVICE_CONFIG0  0x00
+#define DEVICE_CONFIG1  0x01
+#define LED_CONFIG0     0x02
+#define BANK_BRIGHTNESS 0x03
+#define BANK_A_COLOR    0x04
+#define BANK_B_COLOR    0x05
+#define BANK_C_COLOR    0x06
+#define LED0_BRIGHTNESS 0x07
+#define LED1_BRIGHTNESS 0x08
+#define LED2_BRIGHTNESS 0x09
+#define LED3_BRIGHTNESS 0x0A
+#define OUT0_COLOR      0x0B
+#define OUT1_COLOR      0x0C
+#define OUT2_COLOR      0x0D
+#define OUT3_COLOR      0x0E
+#define OUT4_COLOR      0x0F
+#define OUT5_COLOR      0x10
+#define OUT6_COLOR      0x11
+#define OUT7_COLOR      0x12
+#define OUT8_COLOR      0x13
+#define OUT9_COLOR      0x14
+#define OUT10_COLOR     0x15
+#define OUT11_COLOR     0x16
+#define RESET           0x17
+
+//
+#define CHIP_EN         0x20
+#define CONFIG1_RST_VAL 0x3C
+#define RESET_VALUE     0xFF
+
+class LP50xx
+{
+public:
+    LP50xx();
+
+    void enable();
+    void config();
+    void reset();
+
+    void bankconfig();
+    void setBankBrightness();
+    void setBankColor();
+
+    void setLEDBrightness();
+    void setOutColor();
+
+    void registerWrite();
+    uint8_t registerRead();
+
+private:
+    i2c_handle;
+    uint8_t i2c_address;
+    uint8_t data_to_send;
+
+};
+
+#endif
