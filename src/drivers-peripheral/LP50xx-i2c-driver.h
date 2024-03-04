@@ -1,6 +1,9 @@
 #ifndef LP50XX_I2C_DRIVER_H_
 #define LP50XX_I2C_DRIVER_H_
 
+#include "stm32f1xx_hal.h"
+#include <stdint.h>
+
 //register definitions
 #define DEVICE_CONFIG0  0x00
 #define DEVICE_CONFIG1  0x01
@@ -52,7 +55,7 @@ public:
     uint8_t registerRead();
 
 private:
-    i2c_handle;
+    I2C_HandleTypeDef i2c_handle;
     uint8_t i2c_address;
     uint8_t data_to_send;
 

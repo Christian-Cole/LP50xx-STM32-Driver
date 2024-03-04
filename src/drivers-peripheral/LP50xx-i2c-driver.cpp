@@ -1,5 +1,8 @@
 #include "LP50xx-i2c-driver.h"
 
+#include "stm32f4xx_hal_def.h"
+#include "stm32f4xx_hal_i2c.h"
+
 
 LP50xx::LP50xx()
 {
