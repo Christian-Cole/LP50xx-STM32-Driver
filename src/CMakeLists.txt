@@ -59,12 +59,14 @@ target_link_libraries(${TARGET}
         #HAL::STM32::F1::RCCEx
         HAL::STM32::F1::GPIO
         HAL::STM32::F1::CORTEX
+        HAL::STM32::F1::I2C
         CMSIS::STM32::F103RB
         STM32::NoSys
         #FreeRTOS::Timers
         #FreeRTOS::Heap::4
         #FreeRTOS::ARM_CM4F
         #TODO your object libraries go here
+        lp50xx-i2c-driver
     )
 
 # TODO if you want a linker script
@@ -103,13 +105,14 @@ target_compile_definitions(${TARGET} PUBLIC
 
 
 # TODO change chip
-add_compile_definitions(STM32F103Rx)
+add_compile_definitions(STM32F103xB)
 
 add_compile_options(
     ${CPPFLAGS}
     )
 
 # TODO add_subdirectory(folder-name) goes here for all folders!
+add_subdirectory(drivers-peripheral)
 
 add_library(core-conf 
     INTERFACE

@@ -1,3 +1,4 @@
+#pragma once
 #ifndef LP50XX_I2C_DRIVER_H_
 #define LP50XX_I2C_DRIVER_H_
 
@@ -31,31 +32,31 @@
 #define RESET           0x17
 
 //
-#define CHIP_EN         0x20
+#define CHIP_EN         0x40
 #define CONFIG1_RST_VAL 0x3C
 #define RESET_VALUE     0xFF
 
 class LP50xx
 {
 public:
-    LP50xx();
+    LP50xx(uint8_t _i2c_address, I2C_HandleTypeDef *_i2c_handle);
 
     void enable();
-    void config();
+    void config(uint8_t configValue);
     void reset();
 
-    void bankconfig();
-    void setBankBrightness();
-    void setBankColor();
+    void bankConfig(uint8_t bankConfigValue);
+    void setBankBrightness(uint8_t bankBrightnessValue);
+    void setBankColor(uint8_t bank, uint8_t bankColorValue);
 
-    void setLEDBrightness();
-    void setOutColor();
+    void setLEDBrightness(uint8_t LED, uint8_t LEDBrightnessValue);
+    void setOutColor(uint8_t out, uint8_t outColorValue);
 
-    void registerWrite();
-    uint8_t registerRead();
+    void registerWrite(uint8_t reg, uint8_t value);
+    uint8_t registerRead(uint8_t reg);
 
 private:
-    I2C_HandleTypeDef i2c_handle;
+    I2C_HandleTypeDef* i2c_handle;
     uint8_t i2c_address;
     uint8_t data_to_send;
 
