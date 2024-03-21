@@ -31,7 +31,7 @@
 #define OUT11_COLOR     0x16
 #define RESET           0x17
 
-//
+//important data values
 #define CHIP_EN         0x40
 #define CONFIG1_RST_VAL 0x3C
 #define RESET_VALUE     0xFF
@@ -51,6 +51,7 @@ public:
 
     void setLEDBrightness(uint8_t LED, uint8_t LEDBrightnessValue);
     void setOutColor(uint8_t out, uint8_t outColorValue);
+    void setRGBColor(uint8_t LED, uint8_t valueR, uint8_t valueG, uint8_t valueB); //currently only works when auto-increment is enabled (is by default)
 
     void registerWrite(uint8_t reg, uint8_t value);
     uint8_t registerRead(uint8_t reg);

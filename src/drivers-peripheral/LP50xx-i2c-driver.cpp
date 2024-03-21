@@ -66,6 +66,12 @@ void LP50xx::setOutColor(uint8_t out, uint8_t outColorValue)
     HAL_I2C_Mem_Write(i2c_handle, i2c_address, (OUT0_COLOR + out), I2C_MEMADD_SIZE_8BIT, &data_to_send, 1, HAL_MAX_DELAY);
 }
 
+void LP50xx::setRGBColor(uint8_t LED, uint8_t valueR, uint8_t valueG, uint8_t valueB)
+{
+    uint8_t dataRGB[3] {valueR, valueG, valueB};
+    HAL_I2C_Mem_Write(i2c_handle, i2c_address, (OUT0_COLOR + (LED * 3)), I2C_MEMADD_SIZE_8BIT, dataRGB, 3, HAL_MAX_DELAY);
+}
+
 
 
 void LP50xx::registerWrite(uint8_t reg, uint8_t value)

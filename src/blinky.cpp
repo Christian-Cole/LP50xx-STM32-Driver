@@ -137,34 +137,29 @@ int main(void)
 
     int i = 0;
 
-    uint8_t i2c_address = (0x14 << 1);
+    uint8_t i2c_address = (0x14 << 1); //bit-shifted
 
     LP50xx LEDs(i2c_address, &hi2c2);
 
     //reset
-    uint8_t reset = 0xFF;
-    //HAL_I2C_Mem_Write(&hi2c2, i2c_address, 0x17, I2C_MEMADD_SIZE_8BIT, &reset, 1, HAL_MAX_DELAY);
     LEDs.reset();
 
     //enable
-    //HAL_I2C_Mem_Write(&hi2c2, i2c_address, 0x01, I2C_MEMADD_SIZE_8BIT, 0bXX, 1, HAL_MAX_DELAY);
-    //uint8_t enable = 0b01000000;
-    //HAL_I2C_Mem_Write(&hi2c2, i2c_address, 0x00, I2C_MEMADD_SIZE_8BIT, &enable, 1, HAL_MAX_DELAY);
     LEDs.enable();
 
-    //data send
-    //uint8_t LEDMax = 0xFF;
-    //HAL_I2C_Mem_Write(&hi2c2, i2c_address, 0x11, I2C_MEMADD_SIZE_8BIT, &LEDMax, 1, HAL_MAX_DELAY);
-    //HAL_I2C_Mem_Write(&hi2c2, i2c_address, 0x12, I2C_MEMADD_SIZE_8BIT, &LEDMax, 1, HAL_MAX_DELAY);
-    //HAL_I2C_Mem_Write(&hi2c2, i2c_address, 0x13, I2C_MEMADD_SIZE_8BIT, &LEDMax, 1, HAL_MAX_DELAY);
-    //LEDs.setOutColor(5, 0xFF);
+    LEDs.setLEDBrightness(2, 0x00);
+
+    //LEDs.setRGBColor(0, 0xFF, 0xFF, 0xFF);
+    //LEDs.setRGBColor(1, 0xFF, 0xFF, 0xFF);
+    LEDs.setRGBColor(2, 0xFF, 0x00, 0xF0);
 
     while (1)
     {
-        LEDs.setOutColor(i, 0x00);
-        i = (i + 1) % 9;
-        LEDs.setOutColor(i, 0xFF);
-        HAL_Delay(500);
+        i = (i + 1) % 0xFF;
+        
+        LEDs.setLEDBrightness(2, i);
+        
+        HAL_Delay(5);
     }
     return 0;
 }
