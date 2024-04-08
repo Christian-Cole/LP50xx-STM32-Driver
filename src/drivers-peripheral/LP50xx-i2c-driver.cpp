@@ -12,10 +12,15 @@ LP50xx::LP50xx(uint8_t _i2c_address, I2C_HandleTypeDef *_i2c_handle)
 
 
 
-
 void LP50xx::enable()
 {
     data_to_send = CHIP_EN;
+    HAL_I2C_Mem_Write(i2c_handle, i2c_address, DEVICE_CONFIG0, I2C_MEMADD_SIZE_8BIT, &data_to_send, 1, HAL_MAX_DELAY);
+}
+
+void LP50xx::disable()
+{
+    data_to_send = 0x00;
     HAL_I2C_Mem_Write(i2c_handle, i2c_address, DEVICE_CONFIG0, I2C_MEMADD_SIZE_8BIT, &data_to_send, 1, HAL_MAX_DELAY);
 }
 
@@ -30,7 +35,6 @@ void LP50xx::reset()
     data_to_send = RESET_VALUE;
     HAL_I2C_Mem_Write(i2c_handle, i2c_address, RESET, I2C_MEMADD_SIZE_8BIT, &data_to_send, 1, HAL_MAX_DELAY);
 }
-
 
 
 

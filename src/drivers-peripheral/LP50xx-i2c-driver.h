@@ -5,6 +5,13 @@
 #include "stm32f1xx_hal.h"
 #include <stdint.h>
 
+//address definitions (left justified for the read/write bit)
+#define ADDR_0          0x28
+#define ADDR_1          0x2A
+#define ADDR_2          0x2C
+#define ADDR_3          0x2E
+#define ADDR_BROADCAST  0x18
+
 //register definitions
 #define DEVICE_CONFIG0  0x00
 #define DEVICE_CONFIG1  0x01
@@ -33,8 +40,22 @@
 
 //important data values
 #define CHIP_EN         0x40
-#define CONFIG1_RST_VAL 0x3C
+#define CONFIG1_DEFAULT 0x3C
 #define RESET_VALUE     0xFF
+
+//device config definitions
+#define LED_GLOBAL_OFF  0x01
+#define MAX_CURRENT_EN  0x02
+#define PWM_DITHER_EN   0x04
+#define AUTO_INCR_EN    0x08
+#define POWER_SAVE_EN   0x10
+#define LOG_SCALE_EN    0x20
+
+//bank config definitions
+#define LED0_BANK_EN    0x01
+#define LED1_BANK_EN    0x02
+#define LED2_BANK_EN    0x04
+#define LED3_BANK_EN    0x08
 
 class LP50xx
 {
@@ -42,6 +63,7 @@ public:
     LP50xx(uint8_t _i2c_address, I2C_HandleTypeDef *_i2c_handle);
 
     void enable();
+    void disable();
     void config(uint8_t configValue);
     void reset();
 
