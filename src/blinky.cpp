@@ -147,10 +147,8 @@ int main(void)
     //enable
     LEDs.enable();
 
-    LEDs.setLEDBrightness(2, 0x00);
+    LEDs.setLEDBrightness(2, 0xFF);
 
-    //LEDs.setRGBColor(0, 0xFF, 0xFF, 0xFF);
-    //LEDs.setRGBColor(1, 0xFF, 0xFF, 0xFF);
     LEDs.setRGBColor(2, 0xFF, 0x00, 0xF0);
 
     while (1)

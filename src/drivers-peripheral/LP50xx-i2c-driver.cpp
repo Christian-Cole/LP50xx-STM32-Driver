@@ -52,6 +52,9 @@ void LP50xx::setBankBrightness(uint8_t bankBrightnessValue)
 
 void LP50xx::setBankColor(uint8_t bank, uint8_t bankColorValue)
 {
+    if(bank > 3)
+        return;
+
     data_to_send = bankColorValue;
     HAL_I2C_Mem_Write(i2c_handle, i2c_address, (BANK_A_COLOR + bank), I2C_MEMADD_SIZE_8BIT, &data_to_send, 1, HAL_MAX_DELAY);
 }
@@ -60,18 +63,28 @@ void LP50xx::setBankColor(uint8_t bank, uint8_t bankColorValue)
 
 void LP50xx::setLEDBrightness(uint8_t LED, uint8_t LEDBrightnessValue)
 {
+    
+    if(LED > 3)
+        return;
+
     data_to_send = LEDBrightnessValue;
     HAL_I2C_Mem_Write(i2c_handle, i2c_address, (LED0_BRIGHTNESS + LED), I2C_MEMADD_SIZE_8BIT, &data_to_send, 1, HAL_MAX_DELAY);
 }
 
 void LP50xx::setOutColor(uint8_t out, uint8_t outColorValue)
 {
+    if(out > 11)
+        return;
+
     data_to_send = outColorValue;
     HAL_I2C_Mem_Write(i2c_handle, i2c_address, (OUT0_COLOR + out), I2C_MEMADD_SIZE_8BIT, &data_to_send, 1, HAL_MAX_DELAY);
 }
 
 void LP50xx::setRGBColor(uint8_t LED, uint8_t valueR, uint8_t valueG, uint8_t valueB)
 {
+    if(LED > 3)
+        return;
+
     uint8_t dataRGB[3] {valueR, valueG, valueB};
     HAL_I2C_Mem_Write(i2c_handle, i2c_address, (OUT0_COLOR + (LED * 3)), I2C_MEMADD_SIZE_8BIT, dataRGB, 3, HAL_MAX_DELAY);
 }
